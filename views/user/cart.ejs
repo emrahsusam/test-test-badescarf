@@ -1,0 +1,93 @@
+<%- include("../partials/header") %>
+
+<title>SEPETİM</title>
+</head>
+<body>
+<%- include("../partials/navbar") %>
+<%- include("../partials/flash") %>
+<div class="alert-target">
+
+</div>
+<main class="container">
+    <div class="cartinto mt-3">
+        <h1 class="my-2"> SEPETİM </h1>
+        <hr>
+    </div>
+    <%if(data.length<1){%>
+    <h2 class="text-center">Hey <%=loginUser.username%> Sepetinize ürün eklemediniz.</h2>
+    <%}
+    else{%>
+        <div class="cartinfo row">
+            <div class="col-md-7">
+                <ul class="list-group">
+                    <% for(item of data.reverse()){%>
+                    <li class="list-group-item">
+                        <div class="cartItem d-flex row">
+                            <div class="itemPhoto col-4 d-flex align-center">
+                                <%if(item.item.image.data!=undefined){%>
+                                <img src="data:image/<%=item.item.image.contentType%>;base64,<%=item.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+
+                                <%}
+                                else{%>
+                                <img src="<%=item.item.img%>" alt="Item Image" class="itemImg img-fluid" width="100%" >
+                                <%}%>
+
+
+                            </div>
+                            <div class="itemProd col d-flex align-items-center">
+                                <div class="prodInfo p-2">
+                                    <h5 class="name"><%=item.item.name%></h5>
+                                    <h6>Fiyat : <%=item.item.price%>₺</h6>
+                                    <h6>Adet: <%=item.quantity%></h6>
+                                </div>
+                            </div>
+                            <div class="actionButton d-flex align-items-center justify-content-center col-md-2">
+                                <form action="/user/cart/<%=loginUser._id%>/<%=item.item._id%>?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <div class="finalBill">
+                    <div class="card">
+                        <div class="card-header text-muted"><h5>ÖDEME DETAYI</h5></div>
+                        <div class="card-body">
+                            <div class="itemList p-2">
+                                <ul  style="list-style: none; padding-left:0;">
+                                    <%let finalPrice=0;
+                                        for(item of data){
+                                            finalPrice+=item.quantity*item.item.price;
+                                        }
+                                        let itemDisplay=`items`
+                                        if(data.length==1)
+                                            itemDisplay=`item`;
+
+                                        let discount=Math.round(20/100*finalPrice);
+                                        let totalPrice=finalPrice-discount;
+                                    %>
+
+                                    <li class="py-2 d-flex justify-content-between"><h6>FİYAT </h6> <h6><%=finalPrice%>₺</h6></li>
+                                    <li class="py-2 d-flex justify-content-between"><h6>İNDİRİM</h6> <h6 class="text-success"><%=discount%>₺</h6></li>
+                                        <li class="py-2 d-flex justify-content-between"><h6>TESLİMAT</h6> <h6 class='text-success'>ÜCRETSİZ</h6></li>
+                                    <hr>
+                                    <li class="d-flex justify-content-between"><h5>TOPLAM</h5> <h6><span id="finalPrice"><%=totalPrice%>₺</span></h6></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-footer text-success text-center">Bu siparişte %20 indirim kazandınız</div>
+                    </div>
+                </div>
+                <div class="finalBillButton d-grid gap-2 py-3">
+                    <a href="/payment" class="btn btn-success btn-lg">SATIN AL</a>
+
+                </div>
+            </div>
+        </div>
+    <%}%>
+</main>
+
+<%- include("../partials/footer") %>

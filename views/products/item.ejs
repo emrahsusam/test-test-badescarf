@@ -1,0 +1,150 @@
+<%- include("../partials/header") %> 
+
+<title>Badescarf || <%=data.name%></title>
+
+</head>
+<body>
+<%- include("../partials/navbar")%>
+<main>
+<div class="container-fluid my-2">
+  <%- include("../partials/flash") %>
+
+  <section class="single_product_details_area section_padding_0_100">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-12 col-md-6">
+          <div class="single_product_thumb">
+            <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+
+
+
+              <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                  <% if(data.image && data.image.data!=undefined){%>
+                  <img src="data:image/<%=data.image.contentType%>;base64,<%=data.image.data.toString('base64')%>" />
+                  <%} else {%>
+                  <a class="gallery_img" href="<%= data.img%>">
+                    <img class="d-block w-100" src="<%= data.img%>" alt="First slide">
+                  </a>
+                  <%}%>
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="single_product_desc">
+
+            <h4 class="title"><a href="#"><%=data.name%></a></h4>
+
+            <h4 class="price"><%=data.price%>₺</h4>
+
+            <p class="available">Available: <span class="text-muted">STOKTA VAR</span></p>
+
+            <div class="single_product_ratings mb-15">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+
+
+
+            <!-- Add to Cart Form -->
+            <div>
+              <%
+              let addtoCart=`/user/cart/${data._id}`
+              %>
+              <form action="<%=addtoCart%>" method="post" class="cart clearfix mb-50 d-flex">
+                <div class="quantity">
+                  <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                  <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
+                  <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+
+                </div>
+                <button type="submit" class="btn cart-submit d-block">SEPETE EKLE</button>
+
+
+              </form>
+            </div>
+
+            <div id="accordion" role="tablist">
+              <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                  <h6 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">ürün özellikleri</a>
+                  </h6>
+                </div>
+
+                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    <ul>
+                      <li>Şık ve modern görünümlü İpek Twill, canlı ve açık renklerin uyumu ve çiçek desenleriyle enerjik bir
+                        görünüm kazandırır. Nefes alır, ağırlık yapmaz, kayma yapmaz, iç göstermez, rahat bir şal kullanım
+                        imkanı sunar.</li>
+                      <li>Nefes alır</li>
+                      <li>Ağırlık yapmaz</li>
+                      <li>Yüze yapışmaz</li>
+                      <li>İç göstermez</li>
+                      <li>Kolay şekil alır</li>
+                      <li>Çiçek desenli ipek twill kumaş</li>
+                      <li>Siparişler her sabah 08:00-12:00 saatleri arasında teslim edilmektedir.</li>
+                      <li>Hediye paketi yapılmaktadır.</li>
+                      <li>30 derecede sıktırmadan yıkanabilir.</li>
+                      <li>Ürünlerde çekimden kaynaklı ton farkı olabilmektedir.</li>
+                    </ul>                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" role="tab" id="headingTwo">
+                  <h6 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">ÖDEME AYRINTILARI</a>
+                  </h6>
+                </div>
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Ödemeyi kredi kartı veya banka kartı ile yapabilirsiniz.</p>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" role="tab" id="headingThree">
+                  <h6 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">TESMLİMAT &amp; İADE</a>
+                  </h6>
+                </div>
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Ürün teslimatı ücretsiz bir şekilde yapılır. </p>
+                    <p>Tüm siparişler 08:00-12:00 saatleri arasında kargoya teslim edilir.</p>
+                    <p>İade ve değişim için irtibata geçiniz. Ürün değişimlerinde kargo fiyatı alıcıya aittir.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+</div>    
+</main>
+<%- include("../partials/footer") %> 
